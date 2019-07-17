@@ -1,0 +1,29 @@
+#Importing necessary packages
+import surprise
+import pandas as pd
+import numpy as np
+from surprise import SVD
+from surprise load Dataset
+from surprise.model_selection import cross validate
+
+
+
+#Loading the built-in dataset from surprise library
+data = Dataset.load_builtin('ml-100k')
+algo=SVD()
+#Using cross-validate method to calculate Root mean squared error and Mean Absolute Error
+cross_validate(algo,data,measures=['RMSE','MAE'],cv=5,verbose=True)
+
+
+from surprise.model_selection import train_test_split
+from surprise import accuracy
+#Using train test method to split the data
+train_Set,test_Set = train_test_split(data,test_size=0.25)
+algo.fit(train_Set)
+predictions = algo.test(test_Set)
+accuracy.rmse(predictions)
+
+#Checking the prediction on a random example
+uid = str(196)
+iid = str(302)
+pred = algo.predict(uid,iid,r_ui=4,verbose=True)
